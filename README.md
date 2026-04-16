@@ -25,7 +25,7 @@
 
 ## 📂 프로젝트 구조 (Project Structure)
 ```text
-📂 Torch-Memory-Copilot
+📂 unsloth-qlora-finetuning
 ├── 📄 .gitignore                      # 로그 및 모델 가중치 업로드 방지
 ├── 📄 LICENSE                         # MIT License (AD-Styles)
 ├── 📄 README.md                       # 프로젝트 보고서
