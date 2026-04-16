@@ -40,14 +40,14 @@
 ### 본 파이프라인은 데이터 준비부터 최종 모델 검증까지 효율적인 4단계 공정으로 구성됩니다.
 
 1. **모델 다이어트 및 로드 (Model Initialization)**: 수십 기가바이트(GB)가 넘는 무거운 AI 베이스 모델을 단일 GPU가 감당할 수 있도록 **4비트(4-bit)로 압축**하여 가볍게 불러옵니다.
-2. **맞춤형 어댑터 부착 (Adapter Configuration)**: 모델의 뇌 구조 전체를 뜯어고치는 대신, 핵심 연산 부위에만 **'학습용 요약 노트(LoRA)'**를 추가로 부착하여 효율적으로 가르칠 준비를 합니다. 
-3. **학습 데이터 정제 (Data Formatting)**: 준비된 원본 데이터를 AI가 문맥을 가장 잘 이해할 수 있는 **'질의응답(Q&A)' 프롬프트 양식**으로 규격화하고 번역해 줍니다.
+2. **맞춤형 어댑터 부착 (Adapter Configuration)**: 모델의 뇌 구조 전체를 뜯어고치는 대신, 핵심 연산 부위에만 **'학습용 요약 노트(LoRA)'** 를 추가로 부착하여 효율적으로 가르칠 준비를 합니다. 
+3. **학습 데이터 정제 (Data Formatting)**: 준비된 원본 데이터를 AI가 문맥을 가장 잘 이해할 수 있는 **'질의응답(Q&A)' 프롬프트 양식** 으로 규격화하고 번역해 줍니다.
 4. **안정적인 실전 훈련 (SFT Execution)**: GPU 메모리가 터지지 않도록 데이터를 적절히 쪼개서 학습하는 기법(Gradient Accumulation)을 적용하여, 모델에 도메인 지식을 주입하는 미세 조정 과정을 안정적으로 완수합니다.
 
 ---
 
 ## 📊 성능 최적화 벤치마크 (Performance Benchmark)
-> **실험 환경 (Environment):** `Google Colab` / `NVIDIA T4 (16GB VRAM)` / `Llama-3 (8B)` / `Max Sequence Length: 2048`
+> **실험 환경 (Environment)** : `Google Colab` / `NVIDIA T4 (16GB VRAM)` / `Llama-3 (8B)` / `Max Sequence Length: 2048`
 
 | 벤치마크 지표 (Metrics) | Standard HF SFT | **Unsloth + QLoRA** | 향상 수준 (Improvement) |
 | :--- | :---: | :---: | :--- |
