@@ -13,25 +13,25 @@
 
 ---
 
+## 🎯 핵심 기술 목표 (Technical Goals)
+| 구분 | 세부 내용 |
+| :--- | :--- |
+| **Parameter-Efficient Tuning** | Full Fine-tuning 대신 모델 가중치를 동결하고, 0.1% 미만의 LoRA 어댑터만 학습하여 연산량 및 비용 최소화 |
+| **Model Quantization** | `bitsandbytes` 기반 4-bit NF4 양자화를 적용하여 FP16 대비 VRAM 적재량을 획기적으로 압축 |
+| **Kernel Level Optimization** | 학습(역전파) 과정에서 PyTorch가 임시로 저장하는 불필요한 중간 계산값들을 Unsloth의 연산 병합(Kernel Fusion) 기술로 묶어 처리함으로써 VRAM 낭비를 원천 차단 |
+
+---
+
 ## 📂 프로젝트 구조 (Project Structure)
 ```text
 📂 Torch-Memory-Copilot
 ├── 📄 .gitignore                      # 로그 및 모델 가중치 업로드 방지
 ├── 📄 LICENSE                         # MIT License (AD-Styles)
 ├── 📄 README.md                       # 프로젝트 보고서
-├── 📄 train_unsloth.py                # 메인 학습 스크립트
-├── 📄 pytorch_memory_dataset.jsonl    # 10개 이상의 정제된 데이터셋
-└── 📄 requirements.txt                # 패키지 리스트
+└── 📄 pytorch_memory_dataset.jsonl    # 10개 이상의 정제된 데이터셋
+├── 📄 requirements.txt                # 패키지 리스트
+└──  📄 train_unsloth.py                # 메인 학습 스크립트
 ```
-
----
-
-## 🎯 핵심 기술 목표 (Technical Goals)
-| 구분 | 세부 내용 |
-| :--- | :--- |
-| **Parameter-Efficient Tuning** | Full Fine-tuning 대신 베이스 모델 가중치를 동결(Freeze)하고, 0.1% 미만의 LoRA 어댑터만 학습하여 연산량 최소화 |
-| **Model Quantization** | `bitsandbytes`를 활용하여 FP16 모델을 4-bit NF4 데이터 타입으로 압축하여 VRAM 적재량 획기적 감소 |
-| **Kernel Level Optimization** | Unsloth를 도입하여 역전파(Backpropagation) 과정의 수학 연산을 퓨전(Fusion)하고 VRAM 누수 방지 |
 
 ---
 
@@ -58,3 +58,5 @@
 ## 📝 회고록 (Retrospective)
 &emsp;&emsp;이전 프로젝트에서 KoGPT2를 다루며 느꼈던 하드웨어 리소스의 한계를 이번 **PEFT 및 QLoRA 파이프라인** 구축을 통해 구조적으로 돌파할 수 있었습니다. 거대 모델의 수십억 개 파라미터를 모두 업데이트할 필요 없이, 소규모의 어댑터만으로 모델의 지식을 원하는 방향으로 튜닝할 수 있다는 점은 매우 고무적이었습니다.
 <br>&emsp;&emsp;특히 Unsloth 라이브러리가 내부적으로 불필요한 VRAM 할당을 제거하는 과정을 분석하며, 딥러닝 프레임워크를 단순 API 단위로 사용하는 것을 넘어 **수학적 연산 구조와 메모리 할당(CUDA VRAM) 원리**를 깊이 있게 고민하게 되었습니다. 이 최적화 파이프라인은 향후 다양한 도메인의 커스텀 LLM을 효율적으로 구축하는 든든한 기반이 될 것입니다.
+
+"PyTorch는 원래 계산을 할 때 A->B->C 단계마다 결괏값을 메모리에 잠깐씩 다 저장해두는데, Unsloth는 이걸 한 번에 A->C로 계산(Fusion)해버려서 그만큼 VRAM을 아끼는 원리입니다!" 라고 아주 깔끔하고 학생다운 100점짜리 대답을 하실 수 있습니다.
