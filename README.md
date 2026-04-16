@@ -9,8 +9,7 @@
 ---
 
 ## 📌 프로젝트 요약 (Project Overview)
-본 프로젝트는 대규모 언어 모델(LLM) 학습 시 발생하는 막대한 컴퓨팅 자원 요구 문제를 해결하기 위해, **PEFT(Parameter-Efficient Fine-Tuning)** 기법을 적용한 엔드투엔드 파인튜닝 파이프라인입니다. 
-Hugging Face 생태계에 **Unsloth** 커널 최적화와 **4-bit QLoRA** 기술을 결합하여, VRAM 사용량을 극적으로 최소화하고 훈련 속도를 비약적으로 향상시켜 일반적인 단일 GPU 환경에서도 원활한 지도 미세 조정(SFT)이 가능하도록 구현했습니다.
+본 프로젝트는 대규모 언어 모델(LLM) 학습 시 발생하는 막대한 컴퓨팅 자원 요구 문제를 해결하기 위해, **PEFT(Parameter-Efficient Fine-Tuning)** 기법을 적용한 엔드투엔드 파인튜닝 파이프라인입니다. Hugging Face의 **Unsloth** 라이브러리와 **4-bit QLoRA** 기술을 결합하여, VRAM 사용량을 최소화하고 훈련 속도를 향상시켜 일반적인 단일 GPU 환경에서도 원활한 지도 미세 조정(Supervised Fine-Tuning, SFT)이 가능하도록 구현했습니다.
 
 ---
 
