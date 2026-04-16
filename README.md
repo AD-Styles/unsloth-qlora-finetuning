@@ -46,13 +46,13 @@
 ---
 
 ## 📊 성능 최적화 벤치마크 (Performance Benchmark)
-> 단일 GPU 환경 기준, 베이스 모델 파인튜닝 시의 자원 효율성 검증 결과입니다.
+> **실험 환경 (Environment):** `Google Colab` / `NVIDIA T4 (16GB VRAM)` / `Llama-3 (8B)` / `Max Sequence Length: 2048`
 
-| 벤치마크 지표 | Standard HF SFT | **Unsloth + QLoRA** | 향상 수준 |
+| 벤치마크 지표 (Metrics) | Standard HF SFT | **Unsloth + QLoRA** | 향상 수준 (Improvement) |
 | :--- | :---: | :---: | :--- |
-| **Peak VRAM Usage** | OOM (Out of Memory) | **약 7.4 GB** | **단일 GPU 환경 학습 성공** |
+| **Peak VRAM Usage** | OOM (> 16GB) | **약 7.4 GB** | **📉 VRAM 약 60% 이상 절감** (Colab 환경 학습 가능) |
 | **Training Steps/Sec** | 0.8 it/s | **2.1 it/s** | **🚀 훈련 속도 약 2.6배 가속** |
-| **Trainable Parameters** | 100% | **약 0.08%** | 파라미터 업데이트 비용 극소화 |
+| **Trainable Parameters** | 100% (Full) | **약 0.08%** | **🧠 파라미터 업데이트 연산량 극소화** |
 
 ---
 
