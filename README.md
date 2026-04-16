@@ -16,15 +16,13 @@ Hugging Face 생태계에 **Unsloth** 커널 최적화와 **4-bit QLoRA** 기술
 
 ## 📂 프로젝트 구조 (Project Structure)
 ```text
-📂 unsloth-qlora-finetuning
-├── 📄 .gitignore                # 환경 변수 및 가중치 업로드 방지
-├── 📄 LICENSE                   # MIT License
-├── 📄 README.md                 # 프로젝트 기술 보고서 및 아키텍처 설명
-├── 📄 train_sft_pipeline.py     # 데이터 전처리부터 Unsloth 학습까지의 통합 파이프라인 스크립트
-├── 📄 dataset.jsonl             # SFT(지도 미세 조정) 테스트용 샘플 데이터셋
-├── 📄 requirements.txt          # 의존성 라이브러리 목록
-├── 🖼️ peft_architecture.png     # PEFT 및 LoRA 동작 원리 도식화 이미지
-└── 📁 saved_lora_adapters/      # 학습 완료 후 추출된 최종 LoRA 어댑터 가중치
+📂 Torch-Memory-Copilot
+├── 📄 .gitignore                      # 로그 및 모델 가중치 업로드 방지
+├── 📄 LICENSE                         # MIT License (AD-Styles)
+├── 📄 README.md                       # 프로젝트 보고서
+├── 📄 train_unsloth.py                # 메인 학습 스크립트
+├── 📄 pytorch_memory_dataset.jsonl    # 10개 이상의 정제된 데이터셋
+└── 📄 requirements.txt                # 패키지 리스트
 ```
 
 ---
