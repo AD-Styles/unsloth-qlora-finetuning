@@ -29,9 +29,9 @@
 ├── 📄 .gitignore                      # 로그 및 모델 가중치 업로드 방지
 ├── 📄 LICENSE                         # MIT License (AD-Styles)
 ├── 📄 README.md                       # 프로젝트 보고서
-└── 📄 pytorch_memory_dataset.jsonl    # 10개 이상의 정제된 데이터셋
+├── 📄 pytorch_memory_dataset.jsonl    # 10개 이상의 정제된 데이터셋
 ├── 📄 requirements.txt                # 패키지 리스트
-└──  📄 train_unsloth.py                # 메인 학습 스크립트
+└── 📄 train_unsloth.py                # 메인 학습 스크립트
 ```
 
 ---
