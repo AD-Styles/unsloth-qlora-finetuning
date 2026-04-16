@@ -36,11 +36,12 @@
 ---
 
 ## 🛠 파이프라인 워크플로우 (Pipeline Workflow)
-본 파이프라인은 데이터 준비부터 최종 모델 추출까지 효율적인 4단계 공정으로 구성됩니다.
-1. **Model Initialization**: Unsloth `FastLanguageModel`을 통해 대상 LLM을 4-bit 양자화 상태로 초고속 로드
-2. **Adapter Configuration**: 타겟 모듈(`q_proj`, `v_proj` 등)에 Rank($r=16$) 값을 설정하여 학습 가능한 LoRA 레이어 주입
-3. **Data Formatting**: TRL `SFTTrainer`와 호환되도록 커스텀 JSONL 데이터셋을 Prompt Template에 매핑 및 토크나이징
-4. **SFT Execution**: Gradient Accumulation 기법을 적용하여 안정적인 미세 조정(Supervised Fine-Tuning) 수행
+### 본 파이프라인은 데이터 준비부터 최종 모델 검증까지 효율적인 4단계 공정으로 구성됩니다.
+
+1. **모델 다이어트 및 로드 (Model Initialization)**: 수십 기가바이트(GB)가 넘는 무거운 AI 모델을 컴퓨터가 감당할 수 있게 **4비트(4-bit) 형태로 압축**하여 가볍게 불러옴(Unsloth 기술로 로딩 속도를 대폭 높이기)
+2. **학습용 메모지 붙이기 (Adapter Configuration)**: 모델의 전체 몸집을 다 바꾸는 대신, 중요한 연결 부위(q_proj, v_proj 등)에만 **작은 학습용 메모지(LoRA)**를 붙이기(모델 본체는 건드리지 않고 필요한 부분만 똑똑하게 학습시키기)
+3. **데이터 정리 (Data Formatting)**: 내가 가진 원본 데이터를 AI가 공부하기 가장 편한 **'질문과 답변' 양식(Prompt Template)**에 맞춰 하나하나 포장하고, AI의 언어(Token)로 번역해줌
+4. **차근차근 공부 시작 (SFT Execution)**: 준비된 문제집을 가지고 실제로 공부를 시킵니다. 이때 메모리가 부족하지 않게 **데이터를 조금씩 나눠서 공부하고 정답을 확인하는 기술(Gradient Accumulation)**을 사용하여 안정적으로 학습을 완료합니다.
 
 ---
 
