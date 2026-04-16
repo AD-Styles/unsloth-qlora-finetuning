@@ -58,7 +58,7 @@
 
 | 벤치마크 지표 (Metrics) | Standard HF SFT | **Unsloth + QLoRA** | 향상 수준 (Improvement) |
 | :--- | :---: | :---: | :--- |
-| **Peak VRAM Usage** | OOM (> 16GB) | **약 7.4 GB** | **📉 VRAM 약 60% 이상 절감** (Colab 환경 학습 가능) |
+| **Peak VRAM Usage** | OOM (> 16GB) | **약 7.4 GB** | **📉 VRAM 약 60% 이상 절감** (Colab 환경 학습 <br>가능) |
 | **Training Steps/Sec** | 0.8 it/s | **2.1 it/s** | **🚀 훈련 속도 약 2.6배 가속** |
 | **Trainable Parameters** | 100% (Full) | **약 0.08%** | **🧠 파라미터 업데이트 연산량 극소화** |
 
