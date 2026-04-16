@@ -9,16 +9,17 @@
 ---
 
 ## 📌 프로젝트 요약 (Project Overview)
-본 프로젝트는 대규모 언어 모델(LLM) 학습 시 발생하는 막대한 컴퓨팅 자원 요구 문제를 해결하기 위해, **PEFT(Parameter-Efficient Fine-Tuning)** 기법을 적용한 엔드투엔드 파인튜닝 파이프라인입니다. Hugging Face의 **Unsloth** 라이브러리와 **4-bit QLoRA** 기술을 결합하여, VRAM 사용량을 최소화하고 훈련 속도를 향상시켜 일반적인 단일 GPU 환경에서도 원활한 지도 미세 조정(Supervised Fine-Tuning, SFT)이 가능하도록 구현했습니다.
+본 프로젝트는 대규모 언어 모델(LLM) 학습 시 발생하는 막대한 컴퓨팅 자원 요구 문제를 해결하기 위해, **PEFT(Parameter-Efficient Fine-Tuning)** 기법을 적용한 엔드투엔드 파인튜닝 파이프라인입니다. Hugging Face의 **Unsloth** 라이브러리와 **4-bit QLoRA** 기술을 결합하여, VRAM 사용량을 최소화하고 훈련 속도를 향상시켜 일반적인 단일 GPU 환경에서도 원활한 지도 미세 조정(Supervised Fine-Tuning, SFT)이 가능하도록 구현했습니다. 각 단계별로 핵심 내용을 상세하게 풀어서 기술해보았습니다.
 
 ---
 
 ## 🎯 핵심 기술 목표 (Technical Goals)
-| 구분 | 세부 내용 |
+
+| 구분 | 세부 내용 및 도입 이유 |
 | :--- | :--- |
-| **Parameter-Efficient Tuning** | Full Fine-tuning 대신 모델 가중치를 동결하고, 0.1% 미만의 LoRA 어댑터만 학습하여 연산량 및 비용 최소화 |
-| **Model Quantization** | `bitsandbytes` 기반 4-bit NF4 양자화를 적용하여 FP16 대비 VRAM 적재량을 획기적으로 압축 |
-| **Kernel Level Optimization** | 학습(역전파) 과정에서 PyTorch가 임시로 저장하는 불필요한 중간 계산값들을 Unsloth의 연산 병합(Kernel Fusion) 기술로 묶어 처리함으로써 VRAM 낭비를 원천 차단 |
+| **Parameter-Efficient Tuning (LoRA)** | **[본체는 그대로, 확장팩만 학습]** <br> 수십억 개의 모델 파라미터를 전부 업데이트하는 '전체 파인튜닝'은 천문학적인 자원이 소요됩니다. 대신 모델 본체는 동결(Freeze)하고, 핵심 연결 부위에만 **0.08% 미만의 작은 어댑터 레이어(LoRA)**를 추가하여 학습했습니다. 이를 통해 개인 환경에서도 적은 연산량으로 충분한 도메인 성능을 확보했습니다. |
+| **Model Quantization (4-bit NF4)** | **[지능은 유지하되 무게는 압축]** <br> 16비트(FP16) 정밀도의 모델을 그대로 로드하면 VRAM 부족으로 실행조차 불가능합니다. 이를 **4비트(NF4) 형식으로 압축(Quantization)**하여 메모리 점유율을 약 1/4로 줄였습니다. 특히 LLM의 가중치 분포에 최적화된 NF4(Normal Float 4) 방식을 사용하여, 모델의 '똑똑함'은 보존하면서 메모리 효율만 극대화했습니다. |
+| **Kernel-Level Optimization (Unsloth)** | **[메모리 찌꺼기를 줄이는 연산 통합]** <br> 딥러닝 연산 시 매 단계마다 발생하는 중간 계산값들은 VRAM을 불필요하게 차지합니다. Unsloth의 **연산 병합(Kernel Fusion)** 기술을 적용하여 여러 수학 연산을 하나로 묶어 처리했습니다. 중간 과정에서 생기는 '데이터 찌꺼기'를 최소화하여 훈련 속도를 2배 이상 높이고 GPU 한계를 극복했습니다. |
 
 ---
 
