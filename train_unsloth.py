@@ -55,10 +55,10 @@ def main():
 
     print("[6/6] 모델 및 토크나이저 저장 중...")
     # 추론 시 토크나이저가 없으면 에러가 발생하므로 반드시 같이 저장해야함.
-    model.save_pretrained_lora("outputs_finetuned_model")
-    tokenizer.save_pretrained("outputs_finetuned_model")
+    model.save_pretrained_lora("outputs_finetuned_model") # 1. 학습해서 똑똑해진 '뇌' 조각(LoRA 어댑터) 저장
+    tokenizer.save_pretrained("outputs_finetuned_model")  # 2. 이 뇌랑 짝꿍인 '번역가' 정보 저장
 
-    # 학습 완료 후 간단한 결과 테스트 (Inference)
+        # 학습 완료 후 간단한 결과 테스트 (Inference)
     print("\n✨ 학습 결과 테스트 중...")
     FastLanguageModel.for_inference(model)
     prompt = "### 질문: PyTorch에서 CUDA 메모리 누수를 방지하는 가장 좋은 방법은?\n\n### 답변:"
